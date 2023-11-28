@@ -7,7 +7,7 @@ fn decode_line(elem: &str) -> ((u32, u32), (u32, u32)) {
         .map(|elem| {
             elem.to_string()
                 .parse::<u32>()
-                .expect(&format!("Couldn't parse integer: {elem}"))
+                .unwrap_or_else(|_| panic!("Couldn't parse integer: {elem}"))
         })
         .collect();
     ((segments[0], segments[1]), (segments[2], segments[3]))
@@ -56,7 +56,7 @@ mod tests {
         assert!(!fully_contained("2-5,1-4"));
         assert!(!fully_contained("89-314,100-400"));
     }
-    
+
     #[test]
     fn test_overlap() {
         // Same range

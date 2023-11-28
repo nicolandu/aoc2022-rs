@@ -41,13 +41,13 @@ fn get_priority_group(group: &[&str]) -> u32 {
 fn main() -> Result<(), Box<dyn Error>> {
     let content = io::read_to_string(io::stdin())?;
 
-    let line_sum: u32 = content.lines().map(|line| get_priority_line(line)).sum();
+    let line_sum: u32 = content.lines().map(get_priority_line).sum();
 
     let group_sum: u32 = content
         .lines()
         .collect::<Vec<_>>()
         .chunks_exact(3)
-        .map(|group| get_priority_group(group))
+        .map(get_priority_group)
         .sum();
 
     println!("Line sum (part 1): {line_sum}");
@@ -81,6 +81,9 @@ mod tests {
     #[test]
     fn test_group_matches() {
         assert_eq!(get_priority_group(&["milder", "MILDERKeBABS", "kebabs"]), 5);
-        assert_eq!(get_priority_group(&["BritishBroadcastingCorporation", "MILDERKEBABS", "hexBF"]), 28);
+        assert_eq!(
+            get_priority_group(&["BritishBroadcastingCorporation", "MILDERKEBABS", "hexBF"]),
+            28
+        );
     }
 }

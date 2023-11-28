@@ -56,7 +56,7 @@ impl Outcome {
     }
 
     /// Determine response which will give this outcome.
-    fn to_response(&self, opponent: Choice) -> Choice {
+    fn to_response(self, opponent: Choice) -> Choice {
         match self {
             Win => opponent.beaten_by(),
             Draw => opponent,
@@ -84,7 +84,7 @@ fn points_part1(data: &str) -> Option<u32> {
         return None;
     }
 
-    let opponent = match data.chars().nth(0).unwrap() {
+    let opponent = match data.chars().next().unwrap() {
         'A' => Rock,
         'B' => Paper,
         'C' => Scissors,
@@ -128,7 +128,7 @@ fn points_part2(data: &str) -> Option<u32> {
         return None;
     }
 
-    let opponent = match data.chars().nth(0).unwrap() {
+    let opponent = match data.chars().next().unwrap() {
         'A' => Rock,
         'B' => Paper,
         'C' => Scissors,
