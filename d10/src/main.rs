@@ -67,16 +67,13 @@ impl Ops {
 
         let mut out = String::new();
 
-        for op in &self.ops {
+        'op_loop: for op in &self.ops {
             let cnt = match op {
                 Op::Noop => 1,
                 Op::Addx(_) => 2,
             };
 
             for _ in 0..cnt {
-                // Start row at pixel 0
-                px += 1;
-
                 // Format line
                 if pc % 40 == 0 {
                     out.push('\n');
@@ -84,12 +81,18 @@ impl Ops {
                     px = 0;
                 };
 
+                // Exit after 240 cycles, no matter what
+                if pc == 240 {break 'op_loop;}
+
                 pc += 1;
 
                 match x == px - 1 || x == px || x == px + 1 {
                     true => out.push('#'),
                     false => out.push('.'),
                 }
+
+                // Start row at pixel 0
+                px += 1;
             }
 
             if let Op::Addx(val) = op {
