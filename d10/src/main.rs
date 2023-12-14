@@ -89,7 +89,7 @@ impl Ops {
                 pc += 1;
 
                 match x == px - 1 || x == px || x == px + 1 {
-                    true => out.push('#'),
+                    true => out.push('█'),
                     false => out.push('.'),
                 }
 
