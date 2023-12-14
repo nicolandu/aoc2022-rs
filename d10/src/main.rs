@@ -20,7 +20,9 @@ impl Ops {
                 "noop" => ops.push(Op::Noop),
 
                 // Ignore "addx " characters
-                _ => ops.push(Op::Addx(ln[5..].parse::<i32>().unwrap())),
+                _ if ln.len() > 5 => ops.push(Op::Addx(ln[5..].parse::<i32>().unwrap())),
+
+                _ => panic!("Line too short!"),
             }
         }
 
