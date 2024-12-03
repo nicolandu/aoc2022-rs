@@ -14,7 +14,7 @@ enum Move {
 }
 
 impl Move {
-    fn to_tile_movement(&self) -> Tile {
+    fn to_tile_movement(self) -> Tile {
         match self {
             Up => Tile { x: 0, y: 1 },
             Down => Tile { x: 0, y: -1 },
@@ -182,12 +182,12 @@ D 10
 L 25
 U 20";
 
-        let moves = parse_moves(&moves_raw);
-        assert_eq!(visited_tiles(&moves, 10), calculate(&moves_raw.into(), 10));
+        let moves = parse_moves(moves_raw);
+        assert_eq!(visited_tiles(&moves, 10), calculate(moves_raw, 10));
     }
 
     // Other implementation, for reference. Adapted from https://github.com/dellink/advent-of-code/blob/main/2022/src/bin/09.rs
-    fn calculate(input: &String, length: usize) -> usize {
+    fn calculate(input: &str, length: usize) -> usize {
         let mut rope = vec![(0i32, 0i32); length];
         let mut visited = HashSet::new();
         visited.insert((0, 0));
@@ -218,6 +218,6 @@ U 20";
             }
         }
 
-        return visited.len();
+        visited.len()
     }
 }

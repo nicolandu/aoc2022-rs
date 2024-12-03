@@ -30,9 +30,8 @@ impl Stacks {
         for line in state.lines() {
             for (c, stack) in line.chars().skip(1).step_by(4).zip(data.iter_mut()) {
                 // Skip numbers, only keep letters
-                match c {
-                    'A'..='Z' => stack.push_front(c),
-                    _ => (),
+                if let 'A'..='Z' = c {
+                    stack.push_front(c)
                 }
             }
         }
